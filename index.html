@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Laboratório interativo de criptografia — exercícios de Segurança de Sistemas.">
+  <title>Systems Security — Laboratório de Criptografia</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#inicio"><span class="brand-mark">S</span><span>Systems Security</span></a>
+    <nav>
+      <a href="#cifras">Cifras</a>
+      <a href="#sobre">Sobre</a>
+      <a class="github-link" href="https://github.com/AndreyRodr/Systems-Security" target="_blank" rel="noopener">GitHub ↗</a>
+    </nav>
+  </header>
+
+  <main id="inicio">
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">LABORATÓRIO DE CRIPTOGRAFIA</span>
+        <h1>Explore a criptografia<br><em>na prática.</em></h1>
+        <p>Uma versão interativa dos exercícios de Segurança de Sistemas, originalmente desenvolvidos em Python.</p>
+        <a class="primary-btn" href="#cifras">Começar a explorar <span>↓</span></a>
+      </div>
+      <div class="terminal-card">
+        <div class="terminal-head"><span></span><span></span><span></span><small>security_lab</small></div>
+        <div class="terminal-body">
+          <p><b>$</b> ./crypto-lab</p>
+          <p class="muted">Carregando módulos...</p>
+          <p><span class="green">✓</span> OTP</p>
+          <p><span class="green">✓</span> César</p>
+          <p><span class="green">✓</span> Vigenère</p>
+          <p><span class="green">✓</span> Hill</p>
+          <p><span class="green">✓</span> Criptoanálise</p>
+          <p><b>$</b> <span class="cursor"></span></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="cifras">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">MÓDULOS</span>
+          <h2>Laboratório interativo</h2>
+        </div>
+        <p>Escolha um exercício, forneça os dados e veja a transformação acontecer no navegador.</p>
+      </div>
+
+      <div class="tabs" role="tablist">
+        <button class="tab active" data-tab="otp">01 · OTP</button>
+        <button class="tab" data-tab="caesar">02 · César</button>
+        <button class="tab" data-tab="vigenere">03 · Vigenère</button>
+        <button class="tab" data-tab="hill">04 · Hill</button>
+        <button class="tab" data-tab="attack">05 · Ataque à César</button>
+      </div>
+
+      <div class="lab-grid">
+        <aside class="module-info">
+          <span id="module-number" class="module-number">01</span>
+          <h3 id="module-title">One-Time Pad</h3>
+          <p id="module-description">Demonstra a operação XOR entre uma mensagem numérica e uma chave, reproduzindo a lógica do exercício original.</p>
+          <div id="module-tags" class="tags"><span>Binário</span><span>XOR</span></div>
+          <a id="source-link" href="https://github.com/AndreyRodr/Systems-Security/blob/main/impCripto/Ex1_OTP.py" target="_blank" rel="noopener">Ver código Python ↗</a>
+        </aside>
+
+        <section class="tool-card">
+          <div id="tool-otp" class="tool active">
+            <div class="form-grid">
+              <label>Mensagem (decimal)<input id="otp-message" type="number" min="0" value="42"></label>
+              <label>Chave (decimal)<input id="otp-key" type="number" min="0" value="27"></label>
+            </div>
+            <button class="run-btn" id="run-otp">Executar criptografia</button>
+            <div id="otp-output" class="output"></div>
+          </div>
+
+          <div id="tool-caesar" class="tool">
+            <label>Mensagem<textarea id="caesar-message" rows="4" placeholder="Digite uma palavra ou frase...">SEGURANCA DE SISTEMAS</textarea></label>
+            <div class="form-grid compact">
+              <label>Chave K<input id="caesar-key" type="number" value="3"></label>
+              <label>Modo<select id="caesar-mode"><option value="encrypt">Criptografar</option><option value="decrypt">Descriptografar</option></select></label>
+            </div>
+            <button class="run-btn" id="run-caesar">Executar César</button>
+            <div id="caesar-output" class="output"></div>
+          </div>
+
+          <div id="tool-vigenere" class="tool">
+            <label>Mensagem<textarea id="vig-message" rows="4" placeholder="Digite uma mensagem...">SISTEMAS SEGUROS</textarea></label>
+            <label>Chave<input id="vig-key" type="text" value="CHAVE"></label>
+            <div class="form-grid compact">
+              <label>Modo<select id="vig-mode"><option value="encrypt">Criptografar</option><option value="decrypt">Descriptografar</option></select></label>
+            </div>
+            <button class="run-btn" id="run-vig">Executar Vigenère</button>
+            <div id="vig-output" class="output"></div>
+          </div>
+
+          <div id="tool-hill" class="tool">
+            <label>Mensagem<textarea id="hill-message" rows="3" placeholder="Digite uma mensagem...">HELP</textarea></label>
+            <div class="matrix-wrap">
+              <span>Matriz-chave</span>
+              <div class="matrix"><input id="h00" value="3" type="number"><input id="h01" value="3" type="number"><input id="h10" value="2" type="number"><input id="h11" value="5" type="number"></div>
+            </div>
+            <div class="form-grid compact">
+              <label>Modo<select id="hill-mode"><option value="encrypt">Criptografar</option><option value="decrypt">Descriptografar</option></select></label>
+            </div>
+            <button class="run-btn" id="run-hill">Executar Hill</button>
+            <div id="hill-output" class="output"></div>
+          </div>
+
+          <div id="tool-attack" class="tool">
+            <label>Texto cifrado<textarea id="attack-message" rows="4" placeholder="Ex.: PHVVDJHP...">PHVVDJHP GH VHJXUDQFD</textarea></label>
+            <button class="run-btn" id="run-attack">Testar todas as chaves</button>
+            <div id="attack-output" class="output attack-output"></div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="section about" id="sobre">
+      <div class="section-heading">
+        <div><span class="eyebrow">SOBRE O PROJETO</span><h2>Do Python para a web</h2></div>
+      </div>
+      <div class="about-grid">
+        <article><span class="about-icon">01</span><h3>Exercícios acadêmicos</h3><p>Os cinco módulos foram adaptados a partir dos arquivos Python presentes no repositório.</p></article>
+        <article><span class="about-icon">02</span><h3>Execução local</h3><p>As demonstrações são executadas no navegador, sem servidor ou dependências externas.</p></article>
+        <article><span class="about-icon">03</span><h3>Finalidade didática</h3><p>O laboratório serve para visualizar conceitos de criptografia e criptoanálise de forma prática.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer><span>Systems Security · Laboratório de Criptografia</span><a href="https://github.com/AndreyRodr/Systems-Security" target="_blank" rel="noopener">AndreyRodr / Systems-Security ↗</a></footer>
+  <script src="script.js"></script>
+</body>
+</html>
